@@ -7,11 +7,13 @@ class AnimatedLearnView extends StatefulWidget {
   State<AnimatedLearnView> createState() => _AnimatedLearnViewState();
 }
 
-class _AnimatedLearnViewState extends State<AnimatedLearnView> with TickerProviderStateMixin {
+class _AnimatedLearnViewState extends State<AnimatedLearnView>
+    with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(vsync: this, duration: _DurationItems.durationLow);
+    controller =
+        AnimationController(vsync: this, duration: _DurationItems.durationLow);
   }
 
   late AnimationController controller;
@@ -44,7 +46,9 @@ class _AnimatedLearnViewState extends State<AnimatedLearnView> with TickerProvid
           children: [
             ListTile(
               title: AnimatedOpacity(
-                  duration: _DurationItems.durationLow, opacity: _isOpacity ? 1 : 0, child: const Text("data")),
+                  duration: _DurationItems.durationLow,
+                  opacity: _isOpacity ? 1 : 0,
+                  child: const Text("data")),
               trailing: IconButton(
                   onPressed: () {
                     _changeOpacity();
@@ -53,8 +57,10 @@ class _AnimatedLearnViewState extends State<AnimatedLearnView> with TickerProvid
             ),
             AnimatedDefaultTextStyle(
                 child: const Text("data2"),
-                style:
-                    (_isVisible ? context.textTheme().headline1 : context.textTheme().subtitle1) ?? const TextStyle(),
+                style: (_isVisible
+                        ? context.textTheme().displayLarge
+                        : context.textTheme().titleMedium) ??
+                    const TextStyle(),
                 duration: _DurationItems.durationLow),
             AnimatedIcon(icon: AnimatedIcons.menu_close, progress: controller),
             AnimatedContainer(
@@ -64,13 +70,16 @@ class _AnimatedLearnViewState extends State<AnimatedLearnView> with TickerProvid
               color: Colors.red,
               duration: _DurationItems.durationLow,
             ),
-            Expanded(
+            const Expanded(
                 child: Stack(
-              children: const [
+              children: [
                 AnimatedPositioned(
-                    top: 20, curve: Curves.ease, child: Text("data"), duration: _DurationItems.durationLow)
+                    top: 20,
+                    curve: Curves.ease,
+                    child: Text("data"),
+                    duration: _DurationItems.durationLow)
               ],
-            ))
+            )),
           ],
         ));
   }
@@ -79,7 +88,8 @@ class _AnimatedLearnViewState extends State<AnimatedLearnView> with TickerProvid
     return AnimatedCrossFade(
         firstChild: const Placeholder(),
         secondChild: Image.asset("assets/a/images1.png"),
-        crossFadeState: _isVisible ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+        crossFadeState:
+            _isVisible ? CrossFadeState.showFirst : CrossFadeState.showSecond,
         duration: _DurationItems.durationLow);
   }
 }
