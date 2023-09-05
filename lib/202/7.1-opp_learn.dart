@@ -55,5 +55,6 @@ class VeliDownload extends IFileDownload with ShareMixin {
 }
 
 mixin ShareMixin on IFileDownload {
+  //belli durumlardan turemesi icin on kullanilir
   void toShowFile() {}
 }
