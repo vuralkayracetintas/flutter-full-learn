@@ -1,41 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_full_learn/202/cache/shared_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedLearn extends StatefulWidget {
-  const SharedLearn({super.key});
+class SharedLearnView extends StatefulWidget {
+  const SharedLearnView({super.key});
 
   @override
-  State<SharedLearn> createState() => _SharedLearnState();
+  State<SharedLearnView> createState() => _SharedLearnViewState();
 }
 
-class _SharedLearnState extends LoadingStateful<SharedLearn> {
-  int _currentValue = 0;
-  late final List<User> userItems;
-
-  late final SharedManager _manager;
-
+class _SharedLearnViewState extends LoadingStatefull<SharedLearnView> {
   @override
   void initState() {
     super.initState();
-    _manager = SharedManager();
-    userItems = UserItems().users;
-
-    _initialze();
+    getDefaultValue();
   }
 
-  Future<void> _initialze() async {
-    _changeLoading();
-    await _manager.init;
-    _changeLoading();
-    getDefauldValues();
-  }
-
-  Future<void> getDefauldValues() async {
-    //final prefs = await SharedPreferences.getInstance();
-    //  final int? counter = prefs.getInt('counter');
-    _onChangeValue(_manager.getString(SharedKeys.counter) ?? "");
-  }
+  int _currentValue = 0;
 
   void _onChangeValue(String value) {
     final _value = int.tryParse(value);
@@ -46,93 +26,75 @@ class _SharedLearnState extends LoadingStateful<SharedLearn> {
     }
   }
 
+  Future<void> getDefaultValue() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final int? counter = prefs.getInt('counter');
+
+    _onChangeValue(counter.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(_currentValue.toString()),
-        actions: [_loading(context)],
+        actions: [
+          isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : const SizedBox.shrink(),
+        ],
       ),
       floatingActionButton: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _saveValueButton(),
-          _removeValueButton(),
+          saveButton(),
+          const SizedBox(width: 10),
+          removeButton(),
         ],
       ),
-      body: Column(
-        children: [
-          TextField(
-            onChanged: (value) {
-              _onChangeValue(value);
-            },
-          ),
-        ],
+      body: Center(
+        child: Column(
+          children: [
+            TextField(
+              onChanged: (value) {
+                _onChangeValue(value);
+              },
+            )
+          ],
+        ),
       ),
     );
   }
 
-  SingleChildRenderObjectWidget _loading(BuildContext context) {
-    return isLoading
-        ? Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.red,
-              color: Theme.of(context).scaffoldBackgroundColor,
-            ),
-          )
-        : const SizedBox.shrink();
-  }
-
-  FloatingActionButton _saveValueButton() {
+  FloatingActionButton saveButton() {
     return FloatingActionButton(
-      child: const Icon(Icons.save),
+      child: Icon(Icons.save),
       onPressed: () async {
-        _changeLoading();
-        await _manager.saveString(SharedKeys.counter, _currentValue.toString());
-        _changeLoading();
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setInt('counter', _currentValue);
       },
     );
   }
 
-  FloatingActionButton _removeValueButton() {
+  FloatingActionButton removeButton() {
     return FloatingActionButton(
-      child: const Icon(Icons.remove),
+      child: Icon(Icons.remove),
       onPressed: () async {
-        _changeLoading();
-        _manager.removeString(SharedKeys.counter);
-        _changeLoading();
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.remove('counter');
       },
     );
   }
 }
 
-abstract class LoadingStateful<T extends StatefulWidget> extends State<T> {
+abstract class LoadingStatefull<T extends StatefulWidget> extends State<T> {
   bool isLoading = false;
 
   void _changeLoading() {
     setState(() {
       isLoading = !isLoading;
     });
-  }
-}
-
-class User {
-  final String name;
-  final String description;
-  final String url;
-
-  User(this.name, this.description, this.url);
-}
-
-class UserItems {
-  late final List<User> users;
-  UserItems() {
-    users = [
-      User("vkc", "10", "vkc.dev"),
-      User("vkc2", "1011", "vkc.dev2"),
-      User("vkc3", "1011", "vkc.dev3"),
-      User("vkc4", "1011", "vkc.dev4"),
-      User("vkc5", "1011", "vkc.dev5"),
-    ];
   }
 }
