@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(useMaterial3: true),
         // LightTheme().theme,
+        //
         /*
         ThemeData.dark().copyWith(
             errorColor: ColorsItems.sulu,
