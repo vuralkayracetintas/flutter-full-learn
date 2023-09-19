@@ -80,7 +80,7 @@ class _ExpansionPanelListExampleState extends State<ExpansionPanelListExample> {
             children: [
               ListTile(
                   title: Text(item.expandedValue),
-                  leading: Text('text'),
+                  leading: const Text('text'),
                   subtitle: const Text(
                       'To delete this panel, tap the trash can icon'),
                   trailing: const Icon(Icons.delete),
@@ -92,7 +92,7 @@ class _ExpansionPanelListExampleState extends State<ExpansionPanelListExample> {
                   }),
               ListTile(
                   title: Text(item.expandedValue),
-                  leading: Text('text'),
+                  leading: const Text('text'),
                   subtitle: const Text(
                       'To delete this panel, tap the trash can icon'),
                   trailing: const Icon(Icons.delete),
@@ -104,7 +104,7 @@ class _ExpansionPanelListExampleState extends State<ExpansionPanelListExample> {
                   }),
               ListTile(
                   title: Text(item.expandedValue),
-                  leading: Text('text'),
+                  leading: const Text('text'),
                   subtitle: const Text(
                       'To delete this panel, tap the trash can icon'),
                   trailing: const Icon(Icons.delete),

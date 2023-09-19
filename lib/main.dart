@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_full_learn/202/1-tabbar.dart';
-import 'package:flutter_full_learn/202/3-package_learn_view.dart';
-import 'package:flutter_full_learn/202/6-animated_learn.dart';
-import 'package:flutter_full_learn/202/7-opp_learn_view.dart';
-import 'package:flutter_full_learn/202/8-form_learn_view.dart';
-import 'package:flutter_full_learn/202/cache/shared_learn_cache.dart';
-
-import '202/5-image_learn_202.dart';
+import 'package:flutter_full_learn/202/cache/shared_list_cache.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +16,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(useMaterial3: true),
         // LightTheme().theme,
+        //
         //
         /*
         ThemeData.dark().copyWith(
@@ -41,6 +35,6 @@ class MyApp extends StatelessWidget {
                 systemOverlayStyle: SystemUiOverlayStyle.light,
                 backgroundColor: Colors.transparent,
                 elevation: 0)),*/
-        home: const SharedLearnView());
+        home: const SharedListCache());
   }
 }

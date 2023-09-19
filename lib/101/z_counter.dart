@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:counter/counter.dart';
 
 void main() {
-  runApp(deneme());
+  runApp(const deneme());
 }
 
+@immutable
 class deneme extends StatelessWidget {
+  const deneme({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,15 +33,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
-      body: Container(
-        child: Center(
-          child: Counter(
-            min: 0,
-            max: 10,
-            bound: 1,
-            step: 1,
-            onValueChanged: print,
-          ),
+      body: Center(
+        child: Counter(
+          min: 0,
+          max: 10,
+          bound: 1,
+          step: 1,
+          onValueChanged: print,
         ),
       ),
     );
