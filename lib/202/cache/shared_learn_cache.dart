@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_full_learn/202/cache/shared_manager.dart';
+import 'package:flutter_full_learn/202/cache/user_model.dart';
 
 class SharedLearnView extends StatefulWidget {
   const SharedLearnView({super.key});
@@ -25,9 +26,9 @@ class _SharedLearnViewState extends LoadingStatefull<SharedLearnView> {
   }
 
   Future<void> _initalize() async {
-    _changeLoading();
+    changeLoading();
     await _manager.init();
-    _changeLoading();
+    changeLoading();
     getDefaultValue();
   }
 
@@ -84,9 +85,9 @@ class _SharedLearnViewState extends LoadingStatefull<SharedLearnView> {
     return FloatingActionButton(
       child: const Icon(Icons.save),
       onPressed: () async {
-        _changeLoading();
+        changeLoading();
         await _manager.saveString(SharedKeys.counter, _currentValue.toString());
-        _changeLoading();
+        changeLoading();
       },
     );
   }
@@ -95,9 +96,9 @@ class _SharedLearnViewState extends LoadingStatefull<SharedLearnView> {
     return FloatingActionButton(
       child: const Icon(Icons.remove),
       onPressed: () async {
-        _changeLoading();
+        changeLoading();
         _manager.removeItem(SharedKeys.counter);
-        _changeLoading();
+        changeLoading();
       },
     );
   }
@@ -106,24 +107,11 @@ class _SharedLearnViewState extends LoadingStatefull<SharedLearnView> {
 abstract class LoadingStatefull<T extends StatefulWidget> extends State<T> {
   bool isLoading = false;
 
-  void _changeLoading() {
+  void changeLoading() {
     setState(() {
       isLoading = !isLoading;
     });
   }
-}
-
-class User {
-  final String name;
-  final String description;
-  final String url;
-  User({
-    required this.name,
-    required this.description,
-    required this.url,
-  });
-
-  static List<User>? fromJson(Map<String, dynamic> json) {}
 }
 
 class UserItem {
@@ -152,9 +140,9 @@ class UserListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return Card(
           child: ListTile(
-              title: Text(userItems[index].name),
-              subtitle: Text(userItems[index].description),
-              trailing: Text(userItems[index].url)),
+              title: Text(userItems[index].name ?? ''),
+              subtitle: Text(userItems[index].description ?? ''),
+              trailing: Text(userItems[index].url ?? '')),
         );
       },
     );
