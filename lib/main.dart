@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_full_learn/202/10-alert_learn.dart';
 import 'package:flutter_full_learn/202/9-sheet_learn.dart';
+import 'package:flutter_full_learn/303/part/part_of_learn.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,6 +36,6 @@ class MyApp extends StatelessWidget {
                 systemOverlayStyle: SystemUiOverlayStyle.light,
                 backgroundColor: Colors.transparent,
                 elevation: 0)),*/
-        home: AlertLearn());
+        home: PartOfLearn());
   }
 }
