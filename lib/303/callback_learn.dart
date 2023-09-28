@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_full_learn/product/widgets/button/answer_button.dart';
 import 'package:flutter_full_learn/product/widgets/button/dropdown_button_widget.dart';
+import 'package:flutter_full_learn/product/widgets/button/loading_button.dart';
 
 class CallBackLearn extends StatefulWidget {
   const CallBackLearn({super.key});
@@ -27,7 +28,15 @@ class _CallBackLearnState extends State<CallBackLearn> {
               onNumber: (number) {
                 return number % 3 == 1;
               },
-            )
+            ),
+            LoadingButton(
+              title: 'Loading Button',
+              onPressed: () async {
+                await Future.delayed(
+                  const Duration(seconds: 1),
+                );
+              },
+            ),
           ],
         )));
   }
